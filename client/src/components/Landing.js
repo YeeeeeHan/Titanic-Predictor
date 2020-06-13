@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 export const Landing = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState({data: [0,0], loading: true});
   const [input, setInput] = useState({
     ses: 1,
     sex: "female",
@@ -130,7 +130,7 @@ export const Landing = (props) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    const newInput = Object.values(input).join(" ");
+    const newInput = Object.values(input).join("");
     console.log(newInput);
     console.log(typeof newInput);
     axios
@@ -138,7 +138,8 @@ export const Landing = (props) => {
       .then((res) => {
         console.log("In axios");
         console.log(res.data);
-        setResult(res.data);
+        console.log("before setResult, result is:", result);
+        setResult({data: res.data, loading: false});
       })
       .catch((error) => {
         console.log(error);
@@ -386,16 +387,18 @@ export const Landing = (props) => {
               <Card className={classes.root}>
                 <CardContent>
                   <Typography variant="h2" component="h2" align="center">
-                    {result[0] > result[1] ? `Dead` : `Alive`}
+                    {console.log("after setResult, result is:", result)}
+                    {console.log("result.data[0]:", result.data[0])}
+                    {result.loading ? `Loading` : result.data[0] > result.data[1] ? `Dead` : `Alive`}
                   </Typography>
                   <Typography
                     variant="body2"
                     className={classes.pos}
                     color="textPrimary"
                   >
-                    Probability of Death: {(result[0] * 100).toFixed(2)}%
+                    Probability of Death: {(result.data[0] * 100).toFixed(2)}%
                     <br />
-                    Probability of Survival: {(result[1] * 100).toFixed(2)}%
+                    Probability of Survival: {(result.data[1] * 100).toFixed(2)}%
                   </Typography>
                   <br />
                   <Typography variant="body2" component="p"  color="textSecondary">
