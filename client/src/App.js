@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Customers from './components/customers';
+import React from "react";
+import "./App.css";
+import { Route, Switch } from "react-router-dom";
+import Landing from "./components/Landing";
+// import Pokedex from "./Pokedex";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">React Express Starter</h1>
-        </header>
-        <Customers />
-      </div>
-    );
-  }
-}
+const App = () => (
+    <Switch>
+        <Route exact path="/" render={(props) => <Landing {...props} />} />
+        {/*<Route exact path="/:pokemonId" render={(props) => <Pokemon {...props} />}/>*/}
+    </Switch>
+);
 
 export default App;
+
