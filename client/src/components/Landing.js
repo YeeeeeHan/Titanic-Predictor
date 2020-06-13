@@ -134,7 +134,7 @@ export const Landing = (props) => {
     console.log(newInput);
     console.log(typeof newInput);
     axios
-      .post("http://127.0.0.1:5000/predict_api", { data: newInput })
+      .post("http://evening-chamber-63204.herokuapp.com/predict_api", { data: newInput })
       .then((res) => {
         console.log("In axios");
         console.log(res.data);
