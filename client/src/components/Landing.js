@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 export const Landing = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [result, setResult] = useState({data: [0,0], loading: true});
+  const [result, setResult] = useState({ data: [0, 0], loading: true });
   const [input, setInput] = useState({
     ses: 1,
     sex: "female",
@@ -130,7 +130,7 @@ export const Landing = (props) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    const newInput = Object.values(input).join("");
+    const newInput = Object.values(input).join(" ");
     console.log(newInput);
     console.log(typeof newInput);
     axios
@@ -139,7 +139,7 @@ export const Landing = (props) => {
         console.log("In axios");
         console.log(res.data);
         console.log("before setResult, result is:", result);
-        setResult({data: res.data, loading: false});
+        setResult({ data: res.data, loading: false });
       })
       .catch((error) => {
         console.log(error);
@@ -173,12 +173,12 @@ export const Landing = (props) => {
       <br />
       <Grid container lg={12} justify="center" alignItems="center" spacing={2}>
         <Grid item lg={0.5}>
-            <Avatar className={classes.avatar}>
-              <DirectionsBoatIcon fontSize='large'/>
-            </Avatar>
+          <Avatar className={classes.avatar}>
+            <DirectionsBoatIcon fontSize="large" />
+          </Avatar>
         </Grid>
         <Grid item lg={6} alignContent="right">
-            <Typography variant="h3">Would you survive the Titanic?</Typography>
+          <Typography variant="h3">Would you survive the Titanic?</Typography>
         </Grid>
       </Grid>
       <br />
@@ -340,7 +340,9 @@ export const Landing = (props) => {
                 <MenuItem value="C">2nd: Cherbourg, France </MenuItem>
                 <MenuItem value="Q">3rd: Queenstown, Ireland</MenuItem>
               </Select>
-              <FormHelperText>Port in which a passenger started a journey</FormHelperText>
+              <FormHelperText>
+                Port in which a passenger started a journey
+              </FormHelperText>
             </FormControl>
             <br />
             <br />
@@ -389,7 +391,11 @@ export const Landing = (props) => {
                   <Typography variant="h2" component="h2" align="center">
                     {console.log("after setResult, result is:", result)}
                     {console.log("result.data[0]:", result.data[0])}
-                    {result.loading ? `Loading` : result.data[0] > result.data[1] ? `Dead` : `Alive`}
+                    {result.loading
+                      ? `Loading`
+                      : result.data[0] > result.data[1]
+                      ? `Dead`
+                      : `Alive`}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -401,7 +407,11 @@ export const Landing = (props) => {
                     Probability of Survival: {(result.data[1] * 100).toFixed(2)}%
                   </Typography>
                   <br />
-                  <Typography variant="body2" component="p"  color="textSecondary">
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    color="textSecondary"
+                  >
                     Ticket Class: {input.ses} <br />
                     Gender: {input.sex} <br />
                     Age {input.age} <br />
