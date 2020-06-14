@@ -32,8 +32,10 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-
 const useStyles = makeStyles((theme) => ({
+  palette: {
+    type: "dark",
+  },
   paper: {
     marginTop: theme.spacing(3),
     display: "flex",
@@ -122,7 +124,9 @@ export const Landing = (props) => {
     console.log(newInput);
     console.log(typeof newInput);
     axios
-      .post("https://evening-chamber-63204.herokuapp.com/predict_api", { data: newInput })
+      .post("https://evening-chamber-63204.herokuapp.com/predict_api", {
+        data: newInput,
+      })
       .then((res) => {
         console.log("In axios");
         console.log(res.data);
@@ -381,7 +385,8 @@ export const Landing = (props) => {
                   >
                     Probability of Death: {(result.data[0] * 100).toFixed(2)}%
                     <br />
-                    Probability of Survival: {(result.data[1] * 100).toFixed(2)}%
+                    Probability of Survival: {(result.data[1] * 100).toFixed(2)}
+                    %
                   </Typography>
                   <br />
                   <Typography
@@ -406,7 +411,6 @@ export const Landing = (props) => {
               </Button>
             </DialogActions>
           </Dialog>
-
         </Box>
       </Container>
     </React.Fragment>
