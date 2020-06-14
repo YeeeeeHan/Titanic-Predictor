@@ -2,12 +2,11 @@ import React from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Landing from "./components/Landing";
-import { ThemeProvider } from "@material-ui/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import purple from "@material-ui/core/colors/purple";
 
-// import Pokedex from "./Pokedex";
 
 const App = () => {
   const theme = createMuiTheme({
