@@ -32,18 +32,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -348,17 +336,6 @@ export const Landing = (props) => {
             <br />
             <br />
             <br />
-            {/*<TextField*/}
-            {/*  variant="outlined"*/}
-            {/*  margin="normal"*/}
-            {/*  required*/}
-            {/*  fullWidth*/}
-            {/*  id="password"*/}
-            {/*  name="interview_score"*/}
-            {/*  label="Interview Score"*/}
-            {/*  onChange={handleRadio}*/}
-            {/*  type="text"*/}
-            {/*/>*/}
             <Button
               type="submit"
               fullWidth
@@ -430,7 +407,6 @@ export const Landing = (props) => {
             </DialogActions>
           </Dialog>
 
-          <Copyright />
         </Box>
       </Container>
     </React.Fragment>
