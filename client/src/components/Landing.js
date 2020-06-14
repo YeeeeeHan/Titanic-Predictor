@@ -12,13 +12,7 @@ import Container from "@material-ui/core/Container";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import {
-  Card,
-  CardContent,
-  CardActionArea,
-  CardActions,
-  CardMedia,
-} from "@material-ui/core";
+import { Card, CardContent, CardMedia, CardHeader } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
@@ -37,17 +31,26 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { Paper } from "@material-ui/core";
 
+import Divider from "@material-ui/core/Divider";
+
 const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
   palette: {
     background: {
       default: "#000000",
     },
+  },
+  card: {
+    padding: theme.spacing(2),
   },
   paper: {
     marginTop: theme.spacing(3),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: theme.spacing(3),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -89,7 +92,7 @@ export const Landing = (props) => {
         [e.target.name]: parseInt(e.target.value, 10),
       });
     }
-
+    setResult({ ...result, loading: true });
     console.log("handleRadio");
     console.log(e);
     console.log(e.target.name);
@@ -106,6 +109,7 @@ export const Landing = (props) => {
         [e.target.ariaLabel]: newValue,
       });
     }
+    setResult({ ...result, loading: true });
     console.log("handleSlider");
     console.log(e);
     console.log(e.target.ariaLabel);
@@ -119,6 +123,7 @@ export const Landing = (props) => {
       ...input,
       [e.target.name]: newValue.props.value,
     });
+    setResult({ ...result, loading: true });
     console.log(e.target.name);
     console.log(newValue.props.value);
     console.log(input);
@@ -183,265 +188,401 @@ export const Landing = (props) => {
         </Grid>
       </Grid>
       <br />
-      <Paper variant="elevation">
-        <Grid
-          container
-          lg={12}
-          justify="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item lg={0.5}>
-            <Avatar className={classes.avatar}>
-              <DirectionsBoatIcon fontSize="large" />
-            </Avatar>
-          </Grid>
-          <Grid item lg={6} alignContent="right">
-            <Typography variant="h3">Would you survive the Titanic?</Typography>
-          </Grid>
-        </Grid>
-        <br />
-        <br />
-        <Container component="main" maxWidth="sm">
-          <div className={classes.paper}>
+      <br />
+      <Container component="main" maxWidth="md">
+        <Card variant="elevation" className={classes.root}>
+          <Box m={4}>
             <form className={classes.form} noValidate onSubmit={submitForm}>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Ticket Class: </FormLabel>
-                <Select
-                  name="ses"
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={input.ses}
-                  onChange={handleMenu}
+              <Grid container spacing={3} justify="space-evenly">
+                <Grid
+                  container
+                  item
+                  lg={12}
+                  justify="center"
+                  alignItems="center"
+                  spacing={2}
                 >
-                  <MenuItem value={1}>Upper Class</MenuItem>
-                  <MenuItem value={2}>Middle Class</MenuItem>
-                  <MenuItem value={3}>Lower Class</MenuItem>
-                </Select>
-                <FormHelperText>
-                  A proxy for socio-economic status
-                </FormHelperText>
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <FormControl component="fieldset" autoWidth={true}>
-                <FormLabel component="legend">Gender: </FormLabel>
-                <RadioGroup
-                  aria-label="gender"
-                  name="sex"
-                  value={input.sex}
-                  onChange={handleRadio}
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Other"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <FormControl fullWidth={true}>
-                <FormLabel component="legend">Age:</FormLabel>
-                <Slider
-                  itemID="age"
-                  min={1}
-                  step={1}
-                  max={80}
-                  marks={[
-                    { value: 0, label: "0 Years" },
-                    { value: 80, label: "80 Years" },
-                  ]}
-                  onChangeCommitted={handleSlider}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="non-linear-slider"
-                  aria-label="age"
-                />
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <FormControl component="fieldset" autoWidth={true}>
-                <FormLabel component="legend">
-                  Number of Sibling/ Spouses on board:
-                </FormLabel>
-                <RadioGroup
-                  aria-label="sibsp1"
-                  name="sibsp"
-                  value={input.sibsp}
-                  onClick={handleRadio}
-                  row
-                >
-                  <FormControlLabel value={0} control={<Radio />} label="0" />
-                  <FormControlLabel value={1} control={<Radio />} label="1" />
-                  <FormControlLabel value={2} control={<Radio />} label="2" />
-                  <FormControlLabel value={3} control={<Radio />} label="3" />
-                  <FormControlLabel value={4} control={<Radio />} label="4" />
-                  <FormControlLabel value={5} control={<Radio />} label="5" />
-                  <FormControlLabel value={6} control={<Radio />} label="6" />
-                  <FormControlLabel value={7} control={<Radio />} label="7" />
-                  <FormControlLabel value={8} control={<Radio />} label="8" />
-                </RadioGroup>
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <FormControl component="fieldset" autoWidth={true}>
-                <FormLabel component="legend">
-                  Number of Parents/ Children on board:
-                </FormLabel>
-                <RadioGroup
-                  aria-label="parch1"
-                  name="parch"
-                  value={input.parch}
-                  onClick={handleRadio}
-                  row
-                >
-                  <FormControlLabel value={0} control={<Radio />} label="0" />
-                  <FormControlLabel value={1} control={<Radio />} label="1" />
-                  <FormControlLabel value={2} control={<Radio />} label="2" />
-                  <FormControlLabel value={3} control={<Radio />} label="3" />
-                  <FormControlLabel value={4} control={<Radio />} label="4" />
-                  <FormControlLabel value={5} control={<Radio />} label="5" />
-                  <FormControlLabel value={6} control={<Radio />} label="6" />
-                </RadioGroup>
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <FormControl fullWidth={true}>
-                <FormLabel component="legend">Price of Fare Paid: </FormLabel>
-                <Slider
-                  itemID="fare"
-                  min={0}
-                  step={1}
-                  max={512}
-                  marks={[
-                    { value: 0, label: "Snuck up ship" },
-                    { value: 512, label: "$512" },
-                  ]}
-                  onChangeCommitted={handleSlider}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="non-linear-slider1"
-                  aria-label="fare"
-                />
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <FormControl component="fieldset" fullWidth={true}>
-                <FormLabel component="legend">Port of Embarkation: </FormLabel>
-                <Select
-                  name="embarked"
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={input.embarked}
-                  onChange={handleMenu}
-                >
-                  <MenuItem value="S">1st: Southampton, England</MenuItem>
-                  <MenuItem value="C">2nd: Cherbourg, France </MenuItem>
-                  <MenuItem value="Q">3rd: Queenstown, Ireland</MenuItem>
-                </Select>
-                <FormHelperText>
-                  Port in which a passenger started a journey
-                </FormHelperText>
-              </FormControl>
-              <br />
-              <br />
-              <br />
-              <br />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={handleClickOpen}
-              >
-                Predict
-              </Button>
-            </form>
-          </div>
-          <Box mt={8}>
-            <Dialog
-              fullWidth={true}
-              onClose={handleClose}
-              aria-labelledby="customized-dialog-title"
-              open={open}
-            >
-              <DialogTitle
-                id="customized-dialog-title"
-                onClose={handleClose}
-                align="left"
-              >
-                You Would Most Likely Be:
-              </DialogTitle>
-              <DialogContent dividers>
-                <Card className={classes.root}>
-                  <CardContent>
-                    <Typography variant="h2" component="h2" align="center">
-                      {console.log("after setResult, result is:", result)}
-                      {console.log("result.data[0]:", result.data[0])}
-                      {result.loading
-                        ? `Loading`
-                        : result.data[0] > result.data[1]
-                        ? `Dead`
-                        : `Alive`}
+                  <Grid item>
+                    <Avatar className={classes.avatar}>
+                      <DirectionsBoatIcon fontSize="large" />
+                    </Avatar>
+                  </Grid>
+                  <Grid item alignContent="right">
+                    <Typography variant="h3">
+                      Would you survive the Titanic?
                     </Typography>
-                    <Typography
-                      variant="body2"
-                      className={classes.pos}
-                      color="textPrimary"
-                    >
-                      Probability of Death: {(result.data[0] * 100).toFixed(2)}%
-                      <br />
-                      Probability of Survival:{" "}
-                      {(result.data[1] * 100).toFixed(2)}%
-                    </Typography>
-                    <br />
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Ticket Class: {input.ses} <br />
-                      Gender: {input.sex} <br />
-                      Age {input.age} <br />
-                      No. of Siblings/ Spouses: {input.sibsp} <br />
-                      No. of Parents/ Children: {input.parch} <br />
-                      Fare Price: {input.fare} <br />
-                      Port: {input.embarked} <br />
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </DialogContent>
-              <DialogActions>
-                <Button autoFocus onClick={handleClose} color="primary">
-                  Back
+                  </Grid>
+                </Grid>
+                {/*Rjarwijfqgjnlirgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg*/}
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader
+                      title="What Is Your Ticket Class?"
+                      subheader="A proxy for socio-economic status."
+                    />
+                    <Divider variant="middle" />
+                    <Box m={4}>
+                      <FormControl component="fieldset">
+                        <FormLabel component="legend">Ticket Class: </FormLabel>
+                        <Select
+                          name="ses"
+                          labelId="demo-simple-select-helper-label"
+                          id="demo-simple-select-helper"
+                          value={input.ses}
+                          onChange={handleMenu}
+                        >
+                          <MenuItem value={1}>Upper Class</MenuItem>
+                          <MenuItem value={2}>Middle Class</MenuItem>
+                          <MenuItem value={3}>Lower Class</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader title="Your Gender:" />
+                    <Divider variant="middle" />
+                    <Box m={6}>
+                      <FormControl component="fieldset" autoWidth={true}>
+                        <FormLabel component="legend">Gender: </FormLabel>
+                        <RadioGroup
+                          aria-label="gender"
+                          name="sex"
+                          value={input.sex}
+                          onChange={handleRadio}
+                        >
+                          <FormControlLabel
+                            value="female"
+                            control={<Radio />}
+                            label="Female"
+                          />
+                          <FormControlLabel
+                            value="male"
+                            control={<Radio />}
+                            label="Male"
+                          />
+                          <FormControlLabel
+                            value="other"
+                            control={<Radio />}
+                            label="Other"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader
+                      title="How Old Are You?"
+                      subheader="The oldest recorded passenger was 80 years old."
+                    />
+                    <Divider variant="middle" />
+                    <Box m={6}>
+                      <FormControl fullWidth={true}>
+                        <FormLabel component="legend">Age:</FormLabel>
+                        <Slider
+                          itemID="age"
+                          min={1}
+                          step={1}
+                          max={80}
+                          marks={[
+                            { value: 0, label: "0 Years" },
+                            { value: 80, label: "80 Years" },
+                          ]}
+                          onChangeCommitted={handleSlider}
+                          valueLabelDisplay="auto"
+                          aria-labelledby="non-linear-slider"
+                          aria-label="age"
+                        />
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader
+                      title="Who Did You Come With?"
+                      subheader="The average person came with 1 Sibling/ Spouse. The most was 8."
+                    />
+                    <Divider variant="middle" />
+                    <Box m={6}>
+                      <FormControl component="fieldset" autoWidth={true}>
+                        <FormLabel component="legend">
+                          Number of Sibling/ Spouses on board:
+                        </FormLabel>
+                        <RadioGroup
+                          aria-label="sibsp1"
+                          name="sibsp"
+                          value={input.sibsp}
+                          onClick={handleRadio}
+                          row
+                        >
+                          <FormControlLabel
+                            value={0}
+                            control={<Radio />}
+                            label="0"
+                          />
+                          <FormControlLabel
+                            value={1}
+                            control={<Radio />}
+                            label="1"
+                          />
+                          <FormControlLabel
+                            value={2}
+                            control={<Radio />}
+                            label="2"
+                          />
+                          <FormControlLabel
+                            value={3}
+                            control={<Radio />}
+                            label="3"
+                          />
+                          <FormControlLabel
+                            value={4}
+                            control={<Radio />}
+                            label="4"
+                          />
+                          <FormControlLabel
+                            value={5}
+                            control={<Radio />}
+                            label="5"
+                          />
+                          <FormControlLabel
+                            value={6}
+                            control={<Radio />}
+                            label="6"
+                          />
+                          <FormControlLabel
+                            value={7}
+                            control={<Radio />}
+                            label="7"
+                          />
+                          <FormControlLabel
+                            value={8}
+                            control={<Radio />}
+                            label="8"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader title="Who Did You Come With? (Pt.II)" />
+                    <Divider variant="middle" />
+                    <Box m={6}>
+                      <FormControl component="fieldset" autoWidth={true}>
+                        <FormLabel component="legend">
+                          Number of Parents/ Children on board:
+                        </FormLabel>
+                        <RadioGroup
+                          aria-label="parch1"
+                          name="parch"
+                          value={input.parch}
+                          onClick={handleRadio}
+                          row
+                        >
+                          <FormControlLabel
+                            value={0}
+                            control={<Radio />}
+                            label="0"
+                          />
+                          <FormControlLabel
+                            value={1}
+                            control={<Radio />}
+                            label="1"
+                          />
+                          <FormControlLabel
+                            value={2}
+                            control={<Radio />}
+                            label="2"
+                          />
+                          <FormControlLabel
+                            value={3}
+                            control={<Radio />}
+                            label="3"
+                          />
+                          <FormControlLabel
+                            value={4}
+                            control={<Radio />}
+                            label="4"
+                          />
+                          <FormControlLabel
+                            value={5}
+                            control={<Radio />}
+                            label="5"
+                          />
+                          <FormControlLabel
+                            value={6}
+                            control={<Radio />}
+                            label="6"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader
+                      title="How Much Did You Pay?"
+                      subheader="(Or Didn't) The average price was £53, equivalent to about $6,200"
+                    />
+                    <Divider variant="middle" />
+                    <Box m={6}>
+                      <FormControl fullWidth={true}>
+                        <FormLabel component="legend">
+                          Price of Fare Paid:{" "}
+                        </FormLabel>
+                        <br />
+                        <Slider
+                          itemID="fare"
+                          min={0}
+                          step={1}
+                          max={512}
+                          marks={[
+                            { value: 0, label: "Snuck up ship" },
+                            { value: 512, label: "£512" },
+                          ]}
+                          onChangeCommitted={handleSlider}
+                          valueLabelDisplay="auto"
+                          aria-labelledby="non-linear-slider1"
+                          aria-label="fare"
+                        />
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Grid item sm={9} alignItems="center">
+                  <Card variant="elevation" className={classes.root}>
+                    <CardHeader
+                      title="Which Port Did You Embark From?"
+                      subheader="Titanic went from England, then to France, and left from Ireland."
+                    />
+                    <Divider variant="middle" />
+                    <Box m={6}>
+                      <FormControl component="fieldset" fullWidth={true}>
+                        <Select
+                          name="embarked"
+                          labelId="demo-simple-select-helper-label"
+                          id="demo-simple-select-helper"
+                          value={input.embarked}
+                          onChange={handleMenu}
+                        >
+                          <MenuItem value="S">
+                            1st: Southampton, England
+                          </MenuItem>
+                          <MenuItem value="C">2nd: Cherbourg, France </MenuItem>
+                          <MenuItem value="Q">
+                            3rd: Queenstown, Ireland
+                          </MenuItem>
+                        </Select>
+                        <FormHelperText>
+                          Port in which a passenger started a journey
+                        </FormHelperText>
+                      </FormControl>
+                    </Box>
+                  </Card>
+                </Grid>
+                <br />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={handleClickOpen}
+                >
+                  Predict
                 </Button>
-              </DialogActions>
-            </Dialog>
+              </Grid>
+            </form>
+            <Box mt={8}>
+              <Dialog
+                fullWidth={true}
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+              >
+                <DialogTitle
+                  id="customized-dialog-title"
+                  onClose={handleClose}
+                  align="left"
+                >
+                  You Would Most Likely Be:
+                </DialogTitle>
+                <DialogContent dividers>
+                  <Card className={classes.root}>
+                    <CardContent>
+                      <Typography variant="h2" component="h2" align="center">
+                        {console.log("after setResult, result is:", result)}
+                        {console.log("result.data[0]:", result.data[0])}
+                        {result.loading
+                          ? `Loading`
+                          : result.data[0] > result.data[1]
+                          ? `Dead`
+                          : `Alive`}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        className={classes.pos}
+                        color="textPrimary"
+                      >
+                        Probability of Death:{" "}
+                        {result.loading
+                          ? `-`
+                          : (result.data[0] * 100).toFixed(2)}
+                        %
+                        <br />
+                        Probability of Survival:{" "}
+                        {result.loading
+                          ? `-`
+                          : (result.data[1] * 100).toFixed(2)}
+                        %
+                      </Typography>
+                      <br />
+                      <Typography
+                        variant="body2"
+                        component="p"
+                        color="textPrimary"
+                      >
+                        Your Selection:
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="p"
+                        color="textSecondary"
+                      >
+                        Ticket Class: {input.ses} <br />
+                        Gender: {input.sex} <br />
+                        Age {input.age} <br />
+                        No. of Siblings/ Spouses: {input.sibsp} <br />
+                        No. of Parents/ Children: {input.parch} <br />
+                        Fare Price: {input.fare} <br />
+                        Port: {input.embarked} <br />
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </DialogContent>
+                <DialogActions>
+                  <Button autoFocus onClick={handleClose} color="primary">
+                    Back
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </Box>
           </Box>
-        </Container>
-      </Paper>
+        </Card>
+      </Container>
     </React.Fragment>
   );
 };

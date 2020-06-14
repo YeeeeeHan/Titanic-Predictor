@@ -5,22 +5,19 @@ import Landing from "./components/Landing";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import purple from "@material-ui/core/colors/purple";
 
 
 const App = () => {
   const theme = createMuiTheme({
     palette: {
-      // primary: {
-      //   // Purple and green play nicely together.
-      //   main: purple[500],
-      // },
-      // secondary: {
-      //   // This is green.A700 as hex.
-      //   main: "#11cb5f",
-      // },
+      primary: {
+        main: '#131419',
+      },
+      secondary: {
+        main: "#eee34b",
+      },
       background: {
-        default: '#18252e'
+        default: '#131419'
       },
     },
   });
