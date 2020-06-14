@@ -3,7 +3,6 @@ import axios from "axios";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -13,8 +12,13 @@ import Container from "@material-ui/core/Container";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import {
+  Card,
+  CardContent,
+  CardActionArea,
+  CardActions,
+  CardMedia,
+} from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
@@ -31,10 +35,13 @@ import Slider from "@material-ui/core/Slider";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   palette: {
-    type: "dark",
+    background: {
+      default: "#000000",
+    },
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -164,255 +171,277 @@ export const Landing = (props) => {
       </AppBar>{" "}
       <br />
       <Grid container lg={12} justify="center" alignItems="center" spacing={2}>
-        <Grid item lg={0.5}>
-          <Avatar className={classes.avatar}>
-            <DirectionsBoatIcon fontSize="large" />
-          </Avatar>
-        </Grid>
-        <Grid item lg={6} alignContent="right">
-          <Typography variant="h3">Would you survive the Titanic?</Typography>
+        <Grid item>
+          <Card className={classes.root}>
+            <CardMedia
+              className={classes.media}
+              image="https://faithmag.com/sites/default/files/styles/article_full/public/2018-09/titanic2.jpg?h=6521bd5e&itok=H8td6QVv"
+              title="Contemplative Reptile"
+              style={{ width: "800px", height: "500px" }}
+            />
+          </Card>
         </Grid>
       </Grid>
       <br />
-      <br />
-      <Container component="main" maxWidth="sm">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <form className={classes.form} noValidate onSubmit={submitForm}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Ticket Class: </FormLabel>
-              <Select
-                name="ses"
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={input.ses}
-                onChange={handleMenu}
-              >
-                <MenuItem value={1}>Upper Class</MenuItem>
-                <MenuItem value={2}>Middle Class</MenuItem>
-                <MenuItem value={3}>Lower Class</MenuItem>
-              </Select>
-              <FormHelperText>A proxy for socio-economic status</FormHelperText>
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <FormControl component="fieldset" autoWidth={true}>
-              <FormLabel component="legend">Gender: </FormLabel>
-              <RadioGroup
-                aria-label="gender"
-                name="sex"
-                value={input.sex}
-                onChange={handleRadio}
-              >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
+      <Paper variant="elevation">
+        <Grid
+          container
+          lg={12}
+          justify="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item lg={0.5}>
+            <Avatar className={classes.avatar}>
+              <DirectionsBoatIcon fontSize="large" />
+            </Avatar>
+          </Grid>
+          <Grid item lg={6} alignContent="right">
+            <Typography variant="h3">Would you survive the Titanic?</Typography>
+          </Grid>
+        </Grid>
+        <br />
+        <br />
+        <Container component="main" maxWidth="sm">
+          <div className={classes.paper}>
+            <form className={classes.form} noValidate onSubmit={submitForm}>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Ticket Class: </FormLabel>
+                <Select
+                  name="ses"
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={input.ses}
+                  onChange={handleMenu}
+                >
+                  <MenuItem value={1}>Upper Class</MenuItem>
+                  <MenuItem value={2}>Middle Class</MenuItem>
+                  <MenuItem value={3}>Lower Class</MenuItem>
+                </Select>
+                <FormHelperText>
+                  A proxy for socio-economic status
+                </FormHelperText>
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <FormControl component="fieldset" autoWidth={true}>
+                <FormLabel component="legend">Gender: </FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="sex"
+                  value={input.sex}
+                  onChange={handleRadio}
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <FormControl fullWidth={true}>
+                <FormLabel component="legend">Age:</FormLabel>
+                <Slider
+                  itemID="age"
+                  min={1}
+                  step={1}
+                  max={80}
+                  marks={[
+                    { value: 0, label: "0 Years" },
+                    { value: 80, label: "80 Years" },
+                  ]}
+                  onChangeCommitted={handleSlider}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="non-linear-slider"
+                  aria-label="age"
                 />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <FormControl component="fieldset" autoWidth={true}>
+                <FormLabel component="legend">
+                  Number of Sibling/ Spouses on board:
+                </FormLabel>
+                <RadioGroup
+                  aria-label="sibsp1"
+                  name="sibsp"
+                  value={input.sibsp}
+                  onClick={handleRadio}
+                  row
+                >
+                  <FormControlLabel value={0} control={<Radio />} label="0" />
+                  <FormControlLabel value={1} control={<Radio />} label="1" />
+                  <FormControlLabel value={2} control={<Radio />} label="2" />
+                  <FormControlLabel value={3} control={<Radio />} label="3" />
+                  <FormControlLabel value={4} control={<Radio />} label="4" />
+                  <FormControlLabel value={5} control={<Radio />} label="5" />
+                  <FormControlLabel value={6} control={<Radio />} label="6" />
+                  <FormControlLabel value={7} control={<Radio />} label="7" />
+                  <FormControlLabel value={8} control={<Radio />} label="8" />
+                </RadioGroup>
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <FormControl component="fieldset" autoWidth={true}>
+                <FormLabel component="legend">
+                  Number of Parents/ Children on board:
+                </FormLabel>
+                <RadioGroup
+                  aria-label="parch1"
+                  name="parch"
+                  value={input.parch}
+                  onClick={handleRadio}
+                  row
+                >
+                  <FormControlLabel value={0} control={<Radio />} label="0" />
+                  <FormControlLabel value={1} control={<Radio />} label="1" />
+                  <FormControlLabel value={2} control={<Radio />} label="2" />
+                  <FormControlLabel value={3} control={<Radio />} label="3" />
+                  <FormControlLabel value={4} control={<Radio />} label="4" />
+                  <FormControlLabel value={5} control={<Radio />} label="5" />
+                  <FormControlLabel value={6} control={<Radio />} label="6" />
+                </RadioGroup>
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <FormControl fullWidth={true}>
+                <FormLabel component="legend">Price of Fare Paid: </FormLabel>
+                <Slider
+                  itemID="fare"
+                  min={0}
+                  step={1}
+                  max={512}
+                  marks={[
+                    { value: 0, label: "Snuck up ship" },
+                    { value: 512, label: "$512" },
+                  ]}
+                  onChangeCommitted={handleSlider}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="non-linear-slider1"
+                  aria-label="fare"
                 />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio />}
-                  label="Other"
-                />
-              </RadioGroup>
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <FormControl fullWidth={true}>
-              <FormLabel component="legend">Age:</FormLabel>
-              <Slider
-                itemID="age"
-                min={1}
-                step={1}
-                max={80}
-                marks={[
-                  { value: 0, label: "0 Years" },
-                  { value: 80, label: "80 Years" },
-                ]}
-                onChangeCommitted={handleSlider}
-                valueLabelDisplay="auto"
-                aria-labelledby="non-linear-slider"
-                aria-label="age"
-              />
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <FormControl component="fieldset" autoWidth={true}>
-              <FormLabel component="legend">
-                Number of Sibling/ Spouses on board:
-              </FormLabel>
-              <RadioGroup
-                aria-label="sibsp1"
-                name="sibsp"
-                value={input.sibsp}
-                onClick={handleRadio}
-                row
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <FormControl component="fieldset" fullWidth={true}>
+                <FormLabel component="legend">Port of Embarkation: </FormLabel>
+                <Select
+                  name="embarked"
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={input.embarked}
+                  onChange={handleMenu}
+                >
+                  <MenuItem value="S">1st: Southampton, England</MenuItem>
+                  <MenuItem value="C">2nd: Cherbourg, France </MenuItem>
+                  <MenuItem value="Q">3rd: Queenstown, Ireland</MenuItem>
+                </Select>
+                <FormHelperText>
+                  Port in which a passenger started a journey
+                </FormHelperText>
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <br />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={handleClickOpen}
               >
-                <FormControlLabel value={0} control={<Radio />} label="0" />
-                <FormControlLabel value={1} control={<Radio />} label="1" />
-                <FormControlLabel value={2} control={<Radio />} label="2" />
-                <FormControlLabel value={3} control={<Radio />} label="3" />
-                <FormControlLabel value={4} control={<Radio />} label="4" />
-                <FormControlLabel value={5} control={<Radio />} label="5" />
-                <FormControlLabel value={6} control={<Radio />} label="6" />
-                <FormControlLabel value={7} control={<Radio />} label="7" />
-                <FormControlLabel value={8} control={<Radio />} label="8" />
-              </RadioGroup>
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <FormControl component="fieldset" autoWidth={true}>
-              <FormLabel component="legend">
-                Number of Parents/ Children on board:
-              </FormLabel>
-              <RadioGroup
-                aria-label="parch1"
-                name="parch"
-                value={input.parch}
-                onClick={handleRadio}
-                row
-              >
-                <FormControlLabel value={0} control={<Radio />} label="0" />
-                <FormControlLabel value={1} control={<Radio />} label="1" />
-                <FormControlLabel value={2} control={<Radio />} label="2" />
-                <FormControlLabel value={3} control={<Radio />} label="3" />
-                <FormControlLabel value={4} control={<Radio />} label="4" />
-                <FormControlLabel value={5} control={<Radio />} label="5" />
-                <FormControlLabel value={6} control={<Radio />} label="6" />
-              </RadioGroup>
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <FormControl fullWidth={true}>
-              <FormLabel component="legend">Price of Fare Paid: </FormLabel>
-              <Slider
-                itemID="fare"
-                min={0}
-                step={1}
-                max={512}
-                marks={[
-                  { value: 0, label: "Snuck up ship" },
-                  { value: 512, label: "$512" },
-                ]}
-                onChangeCommitted={handleSlider}
-                valueLabelDisplay="auto"
-                aria-labelledby="non-linear-slider1"
-                aria-label="fare"
-              />
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <FormControl component="fieldset" fullWidth={true}>
-              <FormLabel component="legend">Port of Embarkation: </FormLabel>
-              <Select
-                name="embarked"
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={input.embarked}
-                onChange={handleMenu}
-              >
-                <MenuItem value="S">1st: Southampton, England</MenuItem>
-                <MenuItem value="C">2nd: Cherbourg, France </MenuItem>
-                <MenuItem value="Q">3rd: Queenstown, Ireland</MenuItem>
-              </Select>
-              <FormHelperText>
-                Port in which a passenger started a journey
-              </FormHelperText>
-            </FormControl>
-            <br />
-            <br />
-            <br />
-            <br />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handleClickOpen}
-            >
-              Predict
-            </Button>
-          </form>
-        </div>
-        <Box mt={8}>
-          <Dialog
-            fullWidth={true}
-            onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
-            open={open}
-          >
-            <DialogTitle
-              id="customized-dialog-title"
-              onClose={handleClose}
-              align="left"
-            >
-              You Would Most Likely Be:
-            </DialogTitle>
-            <DialogContent dividers>
-              <Card className={classes.root}>
-                <CardContent>
-                  <Typography variant="h2" component="h2" align="center">
-                    {console.log("after setResult, result is:", result)}
-                    {console.log("result.data[0]:", result.data[0])}
-                    {result.loading
-                      ? `Loading`
-                      : result.data[0] > result.data[1]
-                      ? `Dead`
-                      : `Alive`}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    className={classes.pos}
-                    color="textPrimary"
-                  >
-                    Probability of Death: {(result.data[0] * 100).toFixed(2)}%
-                    <br />
-                    Probability of Survival: {(result.data[1] * 100).toFixed(2)}
-                    %
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="body2"
-                    component="p"
-                    color="textSecondary"
-                  >
-                    Ticket Class: {input.ses} <br />
-                    Gender: {input.sex} <br />
-                    Age {input.age} <br />
-                    No. of Siblings/ Spouses: {input.sibsp} <br />
-                    No. of Parents/ Children: {input.parch} <br />
-                    Fare Price: {input.fare} <br />
-                    Port: {input.embarked} <br />
-                  </Typography>
-                </CardContent>
-              </Card>
-            </DialogContent>
-            <DialogActions>
-              <Button autoFocus onClick={handleClose} color="primary">
-                Back
+                Predict
               </Button>
-            </DialogActions>
-          </Dialog>
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Box mt={8}>
+            <Dialog
+              fullWidth={true}
+              onClose={handleClose}
+              aria-labelledby="customized-dialog-title"
+              open={open}
+            >
+              <DialogTitle
+                id="customized-dialog-title"
+                onClose={handleClose}
+                align="left"
+              >
+                You Would Most Likely Be:
+              </DialogTitle>
+              <DialogContent dividers>
+                <Card className={classes.root}>
+                  <CardContent>
+                    <Typography variant="h2" component="h2" align="center">
+                      {console.log("after setResult, result is:", result)}
+                      {console.log("result.data[0]:", result.data[0])}
+                      {result.loading
+                        ? `Loading`
+                        : result.data[0] > result.data[1]
+                        ? `Dead`
+                        : `Alive`}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      className={classes.pos}
+                      color="textPrimary"
+                    >
+                      Probability of Death: {(result.data[0] * 100).toFixed(2)}%
+                      <br />
+                      Probability of Survival:{" "}
+                      {(result.data[1] * 100).toFixed(2)}%
+                    </Typography>
+                    <br />
+                    <Typography
+                      variant="body2"
+                      component="p"
+                      color="textSecondary"
+                    >
+                      Ticket Class: {input.ses} <br />
+                      Gender: {input.sex} <br />
+                      Age {input.age} <br />
+                      No. of Siblings/ Spouses: {input.sibsp} <br />
+                      No. of Parents/ Children: {input.parch} <br />
+                      Fare Price: {input.fare} <br />
+                      Port: {input.embarked} <br />
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </DialogContent>
+              <DialogActions>
+                <Button autoFocus onClick={handleClose} color="primary">
+                  Back
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Box>
+        </Container>
+      </Paper>
     </React.Fragment>
   );
 };
